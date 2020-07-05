@@ -27,3 +27,15 @@ class Redaction(models.Model):
     name = models.CharField(max_length=128)
     def __str__(self):
         return self.name
+
+class Friend(models.Model):
+    name = models.TextField(verbose_name='Имя друга')
+    books = models.ManyToManyField('p_library.Book', related_name='books', blank=True,
+                                   verbose_name='Книги')
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
