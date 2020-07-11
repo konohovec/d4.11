@@ -18,7 +18,9 @@ class Book(models.Model):
     price = models.DecimalField(default=None, max_digits=12, decimal_places=2)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     redaction = models.ForeignKey('Redaction', on_delete=models.CASCADE, null=True, blank=True, related_name='books')
-
+    friend_reader = models.ManyToManyField('p_library.Friend', related_name='book_reader',
+                                           verbose_name='Читающие друзья', blank=True)
+    image = models.ImageField(upload_to='book_covers', blank=True)
     def __str__(self):
     	return self.title
 

@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from p_library.forms import AuthorForm, BookForm, FriendForm, FriendEditForm
 from django.template import loader
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView, DetailView
 from django.urls import reverse_lazy
 from django.forms import formset_factory  
 from django.http.response import HttpResponseRedirect
@@ -76,6 +76,11 @@ class AuthorList(ListView):
     model = Author  
     template_name = 'authors_list.html'
 
+class BookEdit(CreateView):
+    model = Book
+    form_class = BookForm
+    success_url = reverse_lazy(index)
+    template_name = 'book_edit.html'
 
 def author_create_many(request):  
     AuthorFormSet = formset_factory(AuthorForm, extra=2)  #  Первым делом, получим класс, который будет создавать наши формы. Обратите внимание на параметр `extra`, в данном случае он равен двум, это значит, что на странице с несколькими формами изначально будет появляться 2 формы создания авторов.
@@ -131,3 +136,14 @@ class FriendEdit(CreateView):
     form_class = FriendEditForm
     success_url = reverse_lazy('friend_list')
     template_name = 'friend_edit.html'
+
+
+
+class BookDetailView(DetailView):
+
+    model = Book
+    template_name = 'book_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

@@ -1,10 +1,13 @@
-Добро пожаловать в {{ title }}  <br>.
+Добро пожаловать в {{ title }}  <br>
 Тут собрано {{ books|length }} книг из моей личной коллекции.
-
+<div class="btn-group add-btn-main-group" role="group">
+    <a href="/book/create">Добавить Книгу</a>
+    <a href="/author/create">Добавить Автора</a>
+</div>
 <table border="1">
     {% for book in books %}
         <tr>
-            <td>{{ book.title }}</td>
+            <td><a href="../book/{{ book.pk }}" title="подробнее">{{ book.title }}</a></td>
             <td>{{ book.ISBN }}</td>
             <td>{{ book.description }}</td>
             <td>{{ book.year_release }}</td>
